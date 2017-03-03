@@ -1,5 +1,5 @@
 # CS3D
-Basic 3D Framework (On its way to Advanced 3D Framework)
+Basic 3D Framework (On its way to Advanced 3D Framework) Runs in OpenGL 3.3 On Windows, Linux and Mac.
 
 How to build
 ---------
