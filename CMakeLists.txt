@@ -132,6 +132,8 @@ add_library(engine
 	cs3d/engine/input.h
 	cs3d/engine/keycode.h
 	cs3d/engine/cs3d.h
+	cs3d/engine/camera.cpp
+	cs3d/engine/camera.h
 )
 
 target_link_libraries(engine
