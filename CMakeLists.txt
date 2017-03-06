@@ -130,6 +130,8 @@ add_library(engine
 	cs3d/engine/light.h
 	cs3d/engine/input.cpp
 	cs3d/engine/input.h
+	cs3d/engine/keycode.h
+	cs3d/engine/cs3d.h
 )
 
 target_link_libraries(engine

@@ -2,8 +2,8 @@
 #include <algorithm>
 #include <stdarg.h>
 
-#include <engine/entity.h>
 #include <engine/light.h>
+#include <engine/entity.h>
 
 class Scene
 {

@@ -4,8 +4,8 @@
 
 #include <glm/glm.hpp>
 
-#include <engine/material.h>
 #include <engine/mesh.h>
+#include <engine/material.h>
 #include <engine/defaultmaterial.h>
 
 class Scene;

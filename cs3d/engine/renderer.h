@@ -12,12 +12,13 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/euler_angles.hpp>
 
-#include <engine/shader.h>
-#include <engine/mesh.h>
 #include <engine/entity.h>
 #include <engine/scene.h>
 #include <engine/scenemanager.h>
 #include <engine/light.h>
+#include <engine/texture.h>
+#include <engine/material.h>
+#include <engine/mesh.h>
 #include <engine/input.h>
 
 class Renderer
@@ -34,7 +35,7 @@ private:
 	double deltaTime;
 	glm::mat4 getModelMatrix(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation);
 
-	GLFWwindow* window;
+	static GLFWwindow* window;
 
 	glm::mat4 Projection;
 	GLuint vertexArrayID;

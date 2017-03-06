@@ -1,6 +1,8 @@
 #pragma once
+
 #include <engine/material.h>
 #include <engine/texture.h>
+
 class DefaultMaterial : public Material
 {
 public:

@@ -45,4 +45,9 @@ void MainScene::update(float deltaTime)
 	t += deltaTime*3;
 	entity->rotation += glm::vec3(1, 0, 2) * deltaTime;
 	entity2->rotation += glm::vec3(0, 0, 1) * deltaTime;
+
+	if (Input::getKeyDown(KeyCode::Escape))
+	{
+		Input::quitApplication();
+	}
 }

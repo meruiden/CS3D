@@ -1,6 +1,6 @@
-#include <engine/renderer.h>
-#include <engine/scenemanager.h>
+#include <engine/cs3d.h>
 #include <project/mainscene.h>
+
 int main(void)
 {
 	Renderer* renderer;

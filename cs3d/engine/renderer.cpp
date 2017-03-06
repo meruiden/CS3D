@@ -1,5 +1,7 @@
 ﻿#include <engine/renderer.h>
 
+GLFWwindow* Renderer::window = NULL;
+
 Renderer::Renderer()
 {
 	float windowWidth = 1400.0f;
@@ -56,12 +58,14 @@ Renderer::Renderer()
 	
 	glGenVertexArrays(1, &vertexArrayID);
 	glBindVertexArray(vertexArrayID);
+	Input::init(window);
 }
 
 Renderer::~Renderer()
 {
-	glDeleteVertexArrays(1, &vertexArrayID);
 	delete Input::getInstance();
+	delete ResourceManager::getInstance();
+	glDeleteVertexArrays(1, &vertexArrayID);
 	glfwTerminate();
 }
 
@@ -71,6 +75,7 @@ void Renderer::run()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		Scene* currentScene = SceneManager::getCurrentScene();
+		Input::update();
 		if (currentScene != NULL)
 		{
 			calculateDeltaTime();
@@ -105,9 +110,6 @@ void Renderer::run()
 		}
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
-
-		/* Poll for and process events */
-		glfwPollEvents();
 	}
 }
 

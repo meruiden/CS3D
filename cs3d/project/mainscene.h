@@ -1,8 +1,7 @@
 #pragma once
-#include <engine/defaultmaterial.h>
-#include <engine/shader.h>
-#include <engine/scene.h>
-#include <engine/light.h>
+
+#include <engine/cs3d.h>
+
 class MainScene : public Scene
 {
 public:
