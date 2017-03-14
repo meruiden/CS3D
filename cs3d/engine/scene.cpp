@@ -2,12 +2,12 @@
 
 Scene::Scene()
 {
-
+	camera = new Camera();
 }
 
 Scene::~Scene()
 {
-	
+	delete camera;
 }
 
 void Scene::update(float deltaTime)

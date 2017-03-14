@@ -47,5 +47,6 @@ void main(){
 		
 		spec += (damped * specular) * ambient;
 	}
-	color = vec4(result, 1) * texture2D(mainTexture, UV) + vec4(spec, 1);
+
+	color = vec4(result, 1) * texture(mainTexture, UV) + vec4(spec, 1);
 }

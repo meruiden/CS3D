@@ -4,14 +4,15 @@
 
 #include <engine/light.h>
 #include <engine/entity.h>
+#include <engine/camera.h>
+#include <engine/dylibhandle.h>
 
-class Scene
+class DYLIB Scene
 {
 public:
 	Scene();
 	virtual ~Scene();
 	virtual void update(float deltaTime);
-
 	
 	void addEntity(Entity* entity);
 	void addEntity(std::vector<Entity*> entities);
@@ -24,7 +25,12 @@ public:
 
 	std::vector<Entity*> getEntities() { return entities; }
 	std::vector<Light*> getLights() { return lights; }
+
+	Camera* getCamera() { return camera; }
 private:
 	std::vector<Entity*> entities;
 	std::vector <Light*> lights;
+
+protected:
+	Camera* camera;
 };

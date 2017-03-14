@@ -9,6 +9,12 @@ ResourceManager::ResourceManager()
 
 ResourceManager::~ResourceManager()
 {
+	std::map<std::string, GLuint>::iterator itt;
+	int textureIndex = 0;
+	for (itt = loadedTextures.begin(); itt != loadedTextures.end(); itt++)
+	{
+		glDeleteTextures(1, &itt->second);
+	}
 }
 
 GLuint ResourceManager::getTexture(std::string filePath, bool& succes)

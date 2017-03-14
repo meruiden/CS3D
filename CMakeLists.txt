@@ -1,4 +1,4 @@
-﻿# CMake entry point
+# CMake entry point
 cmake_minimum_required(VERSION 3.0)
 project (project)
 
@@ -19,9 +19,14 @@ if(UNIX)
 	set(CMAKE_CXX_FLAGS "-Wall -Wstrict-aliasing -std=c++0x -O2")
 
 	set(CMAKE_CXX_FLAGS "-Wall -pthread")
-	set(CMAKE_CXX_FLAGS "-Wall -pg -std=c++11")
+	set(CMAKE_CXX_FLAGS "-Wall -pg -std=c++11 ")
 endif(UNIX)
 
+if(WIN32)
+	add_definitions(
+		-D_SCL_SECURE_NO_WARNINGS
+	)
+endif(WIN32)
 add_definitions(
 	-DTW_STATIC
 	-DTW_NO_LIB_PRAGMA
@@ -102,7 +107,7 @@ set(ALL_LIBS
 	GLEW_200
 )
 
-add_library(engine 
+add_library(cs3d SHARED
 	cs3d/engine/renderer.cpp
 	cs3d/engine/renderer.h
 	cs3d/engine/shader.cpp
@@ -134,9 +139,10 @@ add_library(engine
 	cs3d/engine/cs3d.h
 	cs3d/engine/camera.cpp
 	cs3d/engine/camera.h
+	cs3d/engine/dylibhandle.h
 )
 
-target_link_libraries(engine
+target_link_libraries(cs3d
 	${ALL_LIBS}
 )
 
@@ -148,9 +154,8 @@ add_executable(project
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT project)
 
 target_link_libraries(project
-	engine
+	cs3d
 )
-
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 	target_link_libraries(project
 		-lGL

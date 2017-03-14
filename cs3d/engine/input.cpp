@@ -17,6 +17,8 @@ Input::Input()
 		mouseDown[i] = false;
 	}
 	
+	mouseX = 0;
+	mouseY = 0;
 }
 
 
@@ -46,6 +48,7 @@ void Input::update()
 		Input::getInstance()->mouseUp[i] = false;
 		Input::getInstance()->mouseDown[i] = false;
 	}
+
 	glfwPollEvents();
 }
 
@@ -60,6 +63,7 @@ void Input::init(GLFWwindow * window)
 
 	glfwSetKeyCallback(window, Input::handleKey);
 	glfwSetMouseButtonCallback(window, Input::handleMouse);
+	glfwSetCursorPosCallback(window, Input::handleMousePosition);
 }
 
 bool Input::getKey(KeyCode keyCode)
@@ -124,4 +128,10 @@ void Input::handleMouse(GLFWwindow * window, int button, int action, int mode)
 			Input::getInstance()->mouseUp[button] = true;
 		}
 	}
+}
+
+void Input::handleMousePosition(GLFWwindow * window, double xpos, double ypos)
+{
+	Input::getInstance()->mouseX = (float)xpos;
+	Input::getInstance()->mouseY = (float)ypos;
 }

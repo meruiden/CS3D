@@ -12,6 +12,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/euler_angles.hpp>
 
+#include <engine/dylibhandle.h>
 #include <engine/entity.h>
 #include <engine/scene.h>
 #include <engine/scenemanager.h>
@@ -21,7 +22,7 @@
 #include <engine/mesh.h>
 #include <engine/input.h>
 
-class Renderer
+class DYLIB Renderer
 {
 public:
 	Renderer();
@@ -29,7 +30,7 @@ public:
 
 	void run();
 private:
-	void renderMesh(Mesh* mesh, glm::mat4 MVP, glm::mat4 model, Material* material, std::vector<Light*> lights);
+	void renderMesh(Mesh* mesh, glm::mat4 MVP, glm::mat4 model, Material* material, std::vector<Light*> lights, Camera* camera);
 	void renderLighting(std::vector<Light*> lights, Shader* shader);
 	void calculateDeltaTime();
 	double deltaTime;
@@ -39,5 +40,7 @@ private:
 
 	glm::mat4 Projection;
 	GLuint vertexArrayID;
+	GLuint shadowFrameBuffer;
+	GLuint depthTexture;
 };
 

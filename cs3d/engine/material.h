@@ -8,8 +8,9 @@
 
 #include <engine/shader.h>
 #include <engine/texture.h>
+#include <engine/dylibhandle.h>
 
-class Material
+class DYLIB Material
 {
 public:
 	Material(Shader* shader);

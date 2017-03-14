@@ -6,8 +6,9 @@
 #include <GL/glew.h>
 
 #include <engine/mesh.h>
+#include <engine/dylibhandle.h>
 
-class ResourceManager
+class DYLIB ResourceManager
 {
 public:
 	~ResourceManager();

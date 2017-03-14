@@ -4,17 +4,20 @@
 #include <string>
 
 #include <engine/scene.h>
+#include <engine/dylibhandle.h>
 
-class SceneManager
+class DYLIB SceneManager
 {
 public:
 	static void loadScene(std::string sceneName);
 	static void addScene(std::string sceneName, Scene* scene);
-	static Scene* getCurrentScene() { return SceneManager::currentScene; }
-	static Scene* getScene(std::string sceneName) { return SceneManager::scenes[sceneName]; }
+	static Scene* getCurrentScene() { return SceneManager::getInstance()->currentScene; }
+	static Scene* getScene(std::string sceneName) { return SceneManager::getInstance()->scenes[sceneName]; }
+	static SceneManager* getInstance();
 private:
-	static std::map<std::string, Scene*> scenes;
-	static Scene* currentScene;
+	std::map<std::string, Scene*> scenes;
+	Scene* currentScene;
+	static SceneManager* instance;
 
 };
 

@@ -3,8 +3,9 @@
 #include <GLFW/glfw3.h>
 
 #include <engine/keycode.h>
+#include <engine/dylibhandle.h>
 
-class Input
+class DYLIB Input
 {
 public:
 	static Input* getInstance();
@@ -23,6 +24,10 @@ public:
 
 	static void handleKey(GLFWwindow * window, int key, int scancode, int action, int mode);
 	static void handleMouse(GLFWwindow * window, int button, int action, int mode);
+	static void handleMousePosition(GLFWwindow* window, double xpos, double ypos);
+
+	static float getMouseX() { return Input::getInstance()->mouseX; }
+	static float getMouseY() { return Input::getInstance()->mouseY; }
 private:
 	Input();
 	static Input* instance;
@@ -36,4 +41,7 @@ private:
 	bool mouseDown[GLFW_MOUSE_BUTTON_LAST];
 
 	GLFWwindow* window;
+
+	float mouseX;
+	float mouseY;
 };

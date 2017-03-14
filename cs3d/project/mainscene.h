@@ -13,5 +13,16 @@ private:
 	Entity* entity2;
 	Light* light;
 	Light* light2;
+
+	Entity* lightV;
+	Entity* lightV2;
+
+	Entity* floor;
+
+	Material* unlit;
+	Shader* unlitShader;
+
+	float lastMouseX;
+	float lastMouseY;
 };
 

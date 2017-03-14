@@ -11,8 +11,9 @@
 
 #include <engine/resourcemanager.h>
 #include <engine/mesh.h>
+#include <engine/dylibhandle.h>
 
-class  ObjLoader
+class DYLIB ObjLoader
 {
 public:
 

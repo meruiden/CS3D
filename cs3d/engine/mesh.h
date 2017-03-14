@@ -8,6 +8,8 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
+#include <engine/dylibhandle.h>
+
 struct MeshData
 {
 	GLuint vertexBuffer;
@@ -23,7 +25,7 @@ struct MeshData
 	}
 };
 
-class Mesh
+class DYLIB Mesh
 {
 public:
 	Mesh();
