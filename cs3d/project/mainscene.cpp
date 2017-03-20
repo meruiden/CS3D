@@ -51,7 +51,7 @@ MainScene::MainScene() : Scene()
 	lightV->setAndLoadMesh("assets/cube.obj");
 	lightV2->setAndLoadMesh("assets/cube.obj");
 
-//	lightV->position = light->position;
+	lightV->position = light->position;
 	lightV2->position = light2->position;
 
 	floor = new Entity();
