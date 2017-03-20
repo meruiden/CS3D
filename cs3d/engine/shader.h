@@ -13,9 +13,8 @@
 #include <GL/glew.h>
 
 #include <engine/resourcemanager.h>
-#include <engine/dylibhandle.h>
 
-class DYLIB Shader
+class Shader
 {
 public:
 	Shader();

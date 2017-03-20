@@ -4,9 +4,7 @@
 #include <glm/ext.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <engine/dylibhandle.h>
-
-class DYLIB Camera
+class Camera
 {
 public:
 	Camera();

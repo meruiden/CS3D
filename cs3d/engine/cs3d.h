@@ -15,3 +15,4 @@
 #include <engine/shader.h>
 #include <engine/stringutils.h>
 #include <engine/texture.h>
+#include <engine/cs3dtime.h>

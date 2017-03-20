@@ -5,9 +5,8 @@
 #include <engine/light.h>
 #include <engine/entity.h>
 #include <engine/camera.h>
-#include <engine/dylibhandle.h>
 
-class DYLIB Scene
+class Scene
 {
 public:
 	Scene();

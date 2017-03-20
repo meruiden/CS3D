@@ -1,9 +1,8 @@
 #pragma once
 
 #include <engine/entity.h>
-#include <engine/dylibhandle.h>
 
-class DYLIB Light : Entity
+class Light : Entity
 {
 public:
 	Light();

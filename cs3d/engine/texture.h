@@ -5,9 +5,8 @@
 #include <GL/glew.h>
 
 #include <engine/resourcemanager.h>
-#include <engine/dylibhandle.h>
 
-class DYLIB Texture
+class Texture
 {
 public:
 	Texture();

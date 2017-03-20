@@ -66,17 +66,17 @@ void Input::init(GLFWwindow * window)
 	glfwSetCursorPosCallback(window, Input::handleMousePosition);
 }
 
-bool Input::getKey(KeyCode keyCode)
+bool Input::getKey(cs3d::KeyCode keyCode)
 {
 	return Input::getInstance()->keys[keyCode];
 }
 
-bool Input::getKeyDown(KeyCode keyCode)
+bool Input::getKeyDown(cs3d::KeyCode keyCode)
 {
 	return Input::getInstance()->keysDown[keyCode];
 }
 
-bool Input::getKeyUp(KeyCode keyCode)
+bool Input::getKeyUp(cs3d::KeyCode keyCode)
 {
 	return Input::getInstance()->keysUp[keyCode];
 }

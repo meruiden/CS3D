@@ -3,9 +3,8 @@
 #include <GLFW/glfw3.h>
 
 #include <engine/keycode.h>
-#include <engine/dylibhandle.h>
 
-class DYLIB Input
+class Input
 {
 public:
 	static Input* getInstance();
@@ -15,9 +14,9 @@ public:
 	static void quitApplication();
 	static void init(GLFWwindow* window);
 
-	static bool getKey(KeyCode keyCode);
-	static bool getKeyDown(KeyCode keyCode);
-	static bool getKeyUp(KeyCode keyCode);
+	static bool getKey(cs3d::KeyCode keyCode);
+	static bool getKeyDown(cs3d::KeyCode keyCode);
+	static bool getKeyUp(cs3d::KeyCode keyCode);
 	static bool getMouse(int button);
 	static bool getMouseDown(int button);
 	static bool getMouseUp(int button);

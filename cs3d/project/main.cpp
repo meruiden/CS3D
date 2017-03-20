@@ -3,15 +3,14 @@
 
 int main(void)
 {
-	Renderer* renderer;
-	renderer = new Renderer();
-
+	Renderer* renderer = new Renderer();
 	MainScene* mainscene = new MainScene();
 	SceneManager::addScene("mainscene", mainscene);
 	SceneManager::loadScene("mainscene");
 
 	renderer->run();
-	delete renderer;
+
 	delete mainscene;
+	delete renderer;
 	return 0;
 }

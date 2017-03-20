@@ -7,11 +7,10 @@
 #include <engine/mesh.h>
 #include <engine/material.h>
 #include <engine/defaultmaterial.h>
-#include <engine/dylibhandle.h>
 
 class Scene;
 
-class DYLIB Entity
+class Entity
 {
 public:
 	Entity();

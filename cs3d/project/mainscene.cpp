@@ -30,7 +30,7 @@ MainScene::MainScene() : Scene()
 	light->position = glm::vec3(-6, 0, 0);
 
 	camera->rotation += glm::vec3(0, 3.14f, 0);
-	camera->position = glm::vec3(5, 0, -15);
+	camera->position = glm::vec3(0, 0, -15);
 
 	lastMouseX = Input::getMouseX();
 	lastMouseY = Input::getMouseY();
@@ -51,7 +51,7 @@ MainScene::MainScene() : Scene()
 	lightV->setAndLoadMesh("assets/cube.obj");
 	lightV2->setAndLoadMesh("assets/cube.obj");
 
-	lightV->position = light->position;
+//	lightV->position = light->position;
 	lightV2->position = light2->position;
 
 	floor = new Entity();
@@ -83,19 +83,19 @@ void MainScene::update(float deltaTime)
 
 	glm::vec3 right = glm::normalize(glm::cross(forward, glm::vec3(0, 1, 0)));
 
-	if (Input::getKey(KeyCode::W)) {
+	if (Input::getKey(cs3d::KeyCode::W)) {
 		camera->position += forward * deltaTime * sp;
 	}
 
-	if (Input::getKey(KeyCode::S)) {
+	if (Input::getKey(cs3d::KeyCode::S)) {
 		camera->position -= forward * deltaTime * sp;
 	}
 
-	if (Input::getKey(KeyCode::A)) {
+	if (Input::getKey(cs3d::KeyCode::A)) {
 		camera->position -= right * deltaTime * sp;
 	}
 
-	if (Input::getKey(KeyCode::D)) {
+	if (Input::getKey(cs3d::KeyCode::D)) {
 		camera->position += right * deltaTime * sp;
 	}
 
@@ -106,7 +106,7 @@ void MainScene::update(float deltaTime)
 
 	entity2->rotation += glm::vec3(0, 0, 1) * deltaTime;
 
-	if (Input::getKeyDown(KeyCode::Escape))
+	if (Input::getKeyDown(cs3d::KeyCode::escape))
 	{
 		Input::quitApplication();
 	}

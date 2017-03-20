@@ -4,9 +4,8 @@
 #include <string>
 
 #include <engine/scene.h>
-#include <engine/dylibhandle.h>
 
-class DYLIB SceneManager
+class SceneManager
 {
 public:
 	static void loadScene(std::string sceneName);

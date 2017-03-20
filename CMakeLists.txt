@@ -1,6 +1,6 @@
-# CMake entry point
+﻿# CMake entry point
 cmake_minimum_required(VERSION 3.0)
-project (project)
+project (cs3d)
 
 find_package(OpenGL REQUIRED)
 
@@ -13,6 +13,8 @@ endif()
 if( CMAKE_BINARY_DIR MATCHES " " )
 	message( "Your Build Directory contains spaces. If you experience problems when compiling, this can be the cause." )
 endif()
+
+add_subdirectory(external/fltk-1.3.4-1)
 
 if(UNIX)
 	set(CMAKE_CXX_FLAGS "-Wall -std=c++0x -pedantic -O2 -g -pg")
@@ -59,7 +61,7 @@ set(GLEW_SOURCE
 	external/glew-2.0.0/src/glew.c
 )
 
-add_library( GLEW_200 STATIC
+add_library(GLEW_200 STATIC
 	${GLEW_SOURCE}
 	${GLEW_INCLUDE}
 )
@@ -96,6 +98,8 @@ include_directories(
 	external/glfw-3.2.1/include
 	external/glm
 	external/soil/src
+	external/fltk-1.3.4-1
+	${CMAKE_BINARY_DIR}/external/fltk-1.3.4-1
 	cs3d
 )
 
@@ -107,7 +111,7 @@ set(ALL_LIBS
 	GLEW_200
 )
 
-add_library(cs3d SHARED
+add_library(CS3D STATIC
 	cs3d/engine/renderer.cpp
 	cs3d/engine/renderer.h
 	cs3d/engine/shader.cpp
@@ -139,25 +143,45 @@ add_library(cs3d SHARED
 	cs3d/engine/cs3d.h
 	cs3d/engine/camera.cpp
 	cs3d/engine/camera.h
-	cs3d/engine/dylibhandle.h
+	cs3d/engine/cs3dtime.h
+	cs3d/engine/cs3dtime.cpp
 )
 
-target_link_libraries(cs3d
+target_link_libraries(CS3D
 	${ALL_LIBS}
 )
 
-add_executable(project
+add_executable(CS3D_Editor
+	cs3d/editor/cs3deditor.cpp
+)
+
+target_link_libraries(CS3D_Editor
+	CS3D
+	fltk
+	fltk_forms
+	fltk_gl
+	fltk_images
+	fltk_jpeg
+	fltk_png
+)
+
+add_executable(CS3D_Project
 	cs3d/project/main.cpp
 	cs3d/project/mainscene.cpp
 	cs3d/project/mainscene.h
 )
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT project)
 
-target_link_libraries(project
-	cs3d
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT CS3D_Project)
+
+target_link_libraries(CS3D_Project
+	CS3D
 )
+
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-	target_link_libraries(project
+	target_link_libraries(CS3D_Project
+		-lGL
+	)
+	target_link_libraries(CS3D_Editor
 		-lGL
 	)
 ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")

@@ -2,27 +2,54 @@
 
 GLFWwindow* Renderer::window = NULL;
 
-Renderer::Renderer()
+Renderer::Renderer(bool autoInit)
 {
-	float windowWidth = 1400.0f;
-	float windowHeight = 1050.0f;
+	windowWidth = 1400.0f;
+	windowHeight = 1050.0f;
+
+	if (autoInit)
+	{
+		createWindow();
+		initGL();
+	}
+
+	Projection = glm::perspective(45.0f, windowWidth / windowHeight, 0.1f, 2000.0f);
+	this->deltaTime = 0;
+}
+
+Renderer::~Renderer()
+{
 	
+	delete Input::getInstance();
+	delete ResourceManager::getInstance();
+	glDeleteVertexArrays(1, &vertexArrayID);
+	glDeleteFramebuffers(1, &shadowFrameBuffer);
+	glDeleteTextures(1, &depthTexture);
+
+	glfwTerminate();
+}
+
+void Renderer::createWindow()
+{
 	// Init GLFW
 	glfwInit();
 	// Set all the required options for GLFW
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL
 
-	// Create a GLFWwindow object that we can use for GLFW's functions
 	window = glfwCreateWindow(windowWidth, windowHeight, "Project", NULL, NULL);
 	glfwMakeContextCurrent(window);
 
-	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
-	glewExperimental = GL_TRUE;
-	// Initialize GLEW to setup the OpenGL Function pointers
+	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
+	Input::init(window);
+}
+
+void Renderer::initGL()
+{
 	if (glewInit() != GLEW_OK)
 	{
 		fprintf(stderr, "Failed to initialize GLEW\n");
@@ -30,9 +57,6 @@ Renderer::Renderer()
 		glfwTerminate();
 		return;
 	}
-
-	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	glClearColor(13.0f / 255.0f, 105.0f / 255.0f, 249.0f / 255.0f, 0.0f);
 
@@ -45,18 +69,15 @@ Renderer::Renderer()
 
 	// Cull triangles which normal is not towards the camera
 	glEnable(GL_CULL_FACE);
-	
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	Projection = glm::perspective(45.0f, windowWidth / windowHeight, 0.1f, 2000.0f);
-	this->deltaTime = 0;
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	std::cout << glGetString(GL_VERSION) << std::endl;
 	std::cout << glGetString(GL_RENDERER) << std::endl;
 
 	//glShadeModel(GL_SMOOTH);
 
-	
+
 	glGenVertexArrays(1, &vertexArrayID);
 	glBindVertexArray(vertexArrayID);
 
@@ -81,23 +102,11 @@ Renderer::Renderer()
 	glReadBuffer(GL_NONE);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-		glfwTerminate();
-		return;
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+	{
+		//glfwTerminate();
+		//return;
 	}
-
-	Input::init(window);
-}
-
-Renderer::~Renderer()
-{
-	delete Input::getInstance();
-	delete ResourceManager::getInstance();
-	glDeleteVertexArrays(1, &vertexArrayID);
-	glDeleteFramebuffers(1, &shadowFrameBuffer);
-	glDeleteTextures(1, &depthTexture);
-
-	glfwTerminate();
 }
 
 void Renderer::run()
@@ -117,7 +126,8 @@ void Renderer::run()
 
 			for (int i = 0; i < numEntities; i++)
 			{
-				
+				entities[i]->update(deltaTime);
+
 				glm::mat4 Model = getModelMatrix(entities[i]->position, entities[i]->scale, entities[i]->rotation);
 				// Our ModelViewProjection : multiplication of our 3 matrices
 				glm::mat4 MVP = Projection * currentScene->getCamera()->getViewMatrix() *Model; // Remember, matrix multiplication is the other way around
@@ -183,7 +193,7 @@ void Renderer::renderMesh(Mesh * mesh, glm::mat4 MVP, glm::mat4 model, Material*
 		0,                            // stride
 		(void*)0                      // array buffer offset
 	);
-	
+
 	glUniform3fv(glGetUniformLocation(material->getShader()->getProgramId(), "viewPos"), 1, &camera->position[0]);
 
 	renderLighting(lights, material->getShader());
@@ -210,6 +220,8 @@ void Renderer::renderLighting(std::vector<Light*> lights, Shader* shader)
 		glUniform1f(glGetUniformLocation(shader->getProgramId(), ("pointLights[" + indexString.str() + "].brightness").c_str()), lights[i]->brightness);
 	}
 }
+
+
 
 glm::mat4 Renderer::getModelMatrix(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation)
 {

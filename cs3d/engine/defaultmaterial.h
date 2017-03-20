@@ -3,9 +3,7 @@
 #include <engine/material.h>
 #include <engine/texture.h>
 
-#include <engine/dylibhandle.h>
-
-class DYLIB DefaultMaterial : public Material
+class DefaultMaterial : public Material
 {
 public:
 	DefaultMaterial();
