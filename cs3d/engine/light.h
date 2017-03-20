@@ -7,7 +7,6 @@ class Light : Entity
 public:
 	Light();
 	virtual ~Light();
-	float intensity;
 	
 	glm::vec3 position;
 	glm::vec3 color;

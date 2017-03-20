@@ -132,14 +132,7 @@ void Renderer::run()
 				// Our ModelViewProjection : multiplication of our 3 matrices
 				glm::mat4 MVP = Projection * currentScene->getCamera()->getViewMatrix() *Model; // Remember, matrix multiplication is the other way around
 
-				Material* m = NULL;
-				m = entities[i]->getMaterial();
-				if (m == NULL)
-				{
-					m = entities[i]->getDefaultMaterial();
-				}
-
-				renderMesh(entities[i]->getMesh(), MVP, Model, m, currentScene->getLights(), currentScene->getCamera());
+				renderMesh(entities[i]->getMesh(), MVP, Model, entities[i]->getMaterial(), currentScene->getLights(), currentScene->getCamera());
 
 			}
 		}

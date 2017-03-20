@@ -25,7 +25,7 @@ public:
 	void setParentScene(Scene* scene) { parentScene = scene; }
 
 	Mesh* getMesh() { return mesh; }
-	Material* getMaterial() { return material; }
+	Material* getMaterial() { if (material == NULL) return defaultMaterial; return material; }
 	DefaultMaterial* getDefaultMaterial() { return defaultMaterial; }
 
 	glm::vec3 position;
