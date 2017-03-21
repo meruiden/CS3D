@@ -176,7 +176,7 @@ int main(int argc, char **argv)
 	output_win(win);
 	topwin->end();
 	topwin->resizable(win);
-	topwin->label("Click GL panel to reshape");
+	topwin->label("CS3D Editor");
 	topwin->show(argc, argv);
 
 
