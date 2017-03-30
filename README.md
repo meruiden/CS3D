@@ -10,6 +10,11 @@ Windows, Linux, Mac:
 	cd build
 	cmake -Wno-dev ..
 	make
-	./project
+	./CS3D_Project
+
+To launch the editor instead of the project:
+
+	./CS3D_Editor
+	
 <br><br>
 Copyright (c) Corné Steenhuis. All Rights Reserved.
