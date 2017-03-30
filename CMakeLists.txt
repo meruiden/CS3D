@@ -172,6 +172,8 @@ add_executable(CS3D_Editor
 	cs3d/editor/editorrenderer.cpp
 	cs3d/editor/editorrenderer.h
 	cs3d/editor/crossplatformtools.h
+	cs3d/editor/vec3widget.cpp
+	cs3d/editor/vec3widget.h
 )
 
 target_link_libraries(CS3D_Editor

@@ -24,7 +24,7 @@ inline double getMiliSeconds()
 	{
 		LARGE_INTEGER now;
 		QueryPerformanceCounter(&now);
-		return (1000LL * now.QuadPart) / s_frequency.QuadPart;
+		return (1000.0 * now.QuadPart) / s_frequency.QuadPart;
 	}
 	else
 	{

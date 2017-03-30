@@ -25,8 +25,14 @@ EditorRenderer::EditorRenderer() : Fl_Gl_Window(0, 50, 900, 800)
 	mainWindow->resizable(mainWindow);
 	mainWindow->label("CS3D Editor");
 
-	button = new Fl_Button(900 + 10 + 0, y() + 10, 100, 50, "Change obj\nand/or texture");
-	
+	button = new Fl_Button(900 + 10, y() + 10, 100, 50, "Change obj\nand/or texture");
+
+	positionWidget = new Vec3Widget(900 + 10, y() + 70, 100, 30, "Position");
+	scaleWidget = new Vec3Widget(900 + 10, y() + 150, 100, 30, "Scale");
+	rotationWidget = new Vec3Widget(900 + 10, y() + 230, 100, 30, "Rotation");
+
+	scaleWidget->set(glm::vec3(1.0f));
+
 	mainWindow->callback(onQuit);
 	mainWindow->end();
 
@@ -185,6 +191,10 @@ void EditorRenderer::draw()
 
 	handleCamera();
 
+	entity->position = positionWidget->get();
+	entity->scale = scaleWidget->get();
+	entity->rotation = rotationWidget->get() * (3.1415f / 180.0f);
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	projection = glm::perspective(45.0f, (float)w() / h(), 0.1f, 2000.0f);
 	glViewport(0, 0, w(), h());
@@ -225,7 +235,7 @@ void EditorRenderer::init()
 
 	light = new Light();
 	light->brightness = 8;
-	light->position = glm::vec3(7, -1, -18);
+	light->position = glm::vec3(7, 3, -18);
 	editorScene->addLight(light);
 
 	unlitMaterial = new Material();

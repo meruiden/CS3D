@@ -18,6 +18,8 @@
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Sys_Menu_Bar.H>
 
+#include <editor/vec3widget.h>
+
 #include <manymouse.h>
 
 #include <engine/cs3d.h>
@@ -48,6 +50,10 @@ private:
 	Fl_Window * mainWindow;
 	Fl_Button* button;
 	Fl_Sys_Menu_Bar* menuBar;
+	Vec3Widget* positionWidget;
+	Vec3Widget* scaleWidget;
+	Vec3Widget* rotationWidget;
+
 
 	Light* light;
 	Entity* entity;
