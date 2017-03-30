@@ -2,3 +2,4 @@ build
 Build
 *.dir
 Win32
+*.DS_Store
