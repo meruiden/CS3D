@@ -1,5 +1,7 @@
 #version 330 core
 
+precision highp float;
+
 #define MAX_POINT_LIGHTS 50
 
 struct PointLight {
@@ -26,27 +28,30 @@ out vec4 color;
 void main(){
 	vec3 norm = normalize(normalModelSpace);
 	 
-	vec3 ambient = vec3(0.1, 0.1, 0.1) ;
-
-	vec3 result = ambient;
-	vec3 spec = vec3(0,0,0);
+	vec3 ambient = vec3(0.05, 0.05, 0.05);
+	
+	vec4 tex = texture(mainTexture, UV);
+	
+	vec4 result = vec4(tex.rgb * ambient, tex.a);
+	
 	for(int i = 0; i < numLights; i++){
-		PointLight light = pointLights[i];
-		vec3 lightVec = normalize(light.position - FragPos);
-		float nDotl = dot(norm, lightVec);
-		float brightness = max(nDotl , 0.0);
+		vec3 norm = normalize(normalModelSpace);
+		vec3 lightDir = normalize(pointLights[i].position - FragPos);
+		float diff = max(dot(norm, lightDir), 0.0);
+		vec3 diffuse = diff * pointLights[i].brightness * pointLights[i].color;
 		
-		result += (brightness * light.color) * light.brightness * ambient;
+		float specularStrength = specular;
+		vec3 viewDir = normalize(viewPos - FragPos);
+		vec3 reflectDir = reflect(-lightDir, norm);  
+		float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
+		vec3 specular = specularStrength * spec * pointLights[i].brightness * pointLights[i].color;
 		
-		vec3 cameraVec = normalize(light.position - viewPos);
-		vec3 reflectedLightDir = reflect(lightVec, norm);
+		float distanceToLight = length(pointLights[i].position - FragPos);
 		
-		float specFactor = dot(reflectedLightDir, cameraVec);
-		specFactor = max(specFactor, 0.0);
-		float damped = pow(specFactor, 10);
+		float attenuation = 1.0 / (1.1 * pow(distanceToLight, 2));
 		
-		spec += (damped * specular) * ambient;
+		result += vec4(tex.rgb * (ambient + attenuation *( diffuse + specular)), tex.a);
 	}
 
-	color = vec4(result, 1) * texture(mainTexture, UV) + vec4(spec, 1);
+	color = result;
 }

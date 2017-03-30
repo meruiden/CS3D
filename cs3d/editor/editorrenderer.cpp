@@ -6,6 +6,8 @@ EditorRenderer::EditorRenderer() : Fl_Gl_Window(0, 50, 900, 800)
 {
 	end();
 
+	Fl::scheme("gtk+");
+
 	if (ManyMouse_Init() < 0)
 	{
 		printf("Error initializing ManyMouse!\n");
@@ -225,17 +227,18 @@ void EditorRenderer::init()
 	menuBar->redraw();
 	editorScene->addEntity(entity);
 
-	entity->position = glm::vec3(10, 0, -20);
+	entity->position = glm::vec3(0);
 	entity->rotation = glm::vec3(0, 0, -3.14f / 2.0f);
 	entity->scale = glm::vec3(0.3f);
 
-	entity->setAndLoadMesh("assets/m4a1.obj");
-	entity->getDefaultMaterial()->setTexture("assets/m4a1.png");
-	entity->getDefaultMaterial()->specular = 3;
+	entity->setAndLoadMesh("assets/dragon.obj");
+	entity->getDefaultMaterial()->setTexture("assets/white.png");
+	entity->getDefaultMaterial()->specular = 0.7f;
 
 	light = new Light();
-	light->brightness = 8;
-	light->position = glm::vec3(7, 3, -18);
+	light->brightness = 15.0f;
+	light->position = glm::vec3(-1, 3.5f, 5.5f);
+	light->color = glm::vec3(1, 0, 0);
 	editorScene->addLight(light);
 
 	unlitMaterial = new Material();

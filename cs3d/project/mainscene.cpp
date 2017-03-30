@@ -22,11 +22,11 @@ MainScene::MainScene() : Scene()
 	addLight(light);
 
 	light2->color = glm::vec3(1, 0, 0);
-	light2->brightness = 10;
+	light2->brightness = 20;
 	light2->position = glm::vec3(10, 0, 0);
-	light->brightness = 10;
-	entity2->getDefaultMaterial()->specular = 2.0f;
-	entity->getDefaultMaterial()->specular = 2.0f;
+	light->brightness = 20;
+	entity2->getDefaultMaterial()->specular = 1.0f;
+	entity->getDefaultMaterial()->specular = 1.0f;
 	light->position = glm::vec3(-6, 0, 0);
 
 	camera->rotation += glm::vec3(0, 3.14f, 0);
