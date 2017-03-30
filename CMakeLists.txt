@@ -38,7 +38,6 @@ add_definitions(
 )
 
 add_subdirectory(external/glfw-3.2.1)
-add_subdirectory(external/glm)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 set(OPENGL_LIBRARY
@@ -93,12 +92,31 @@ add_library(soil STATIC
 
 ############
 
+### manymouse ###
+
+set(MANYMOUSE_SOURCE
+	external/manymouse/linux_evdev.c
+	external/manymouse/macosx_hidmanager.c
+	external/manymouse/macosx_hidutilities.c
+	external/manymouse/manymouse.c
+	external/manymouse/manymouse.h
+	external/manymouse/windows_wminput.c
+	external/manymouse/x11_xinput2.c
+)
+
+add_library(manymouse  STATIC
+	${MANYMOUSE_SOURCE}
+)
+
+############
+
 include_directories(
 	external/glew-2.0.0/include
 	external/glfw-3.2.1/include
 	external/glm
 	external/soil/src
 	external/fltk-1.3.4-1
+	external/manymouse
 	${CMAKE_BINARY_DIR}/external/fltk-1.3.4-1
 	cs3d
 )
@@ -143,8 +161,6 @@ add_library(CS3D STATIC
 	cs3d/engine/cs3d.h
 	cs3d/engine/camera.cpp
 	cs3d/engine/camera.h
-	cs3d/engine/cs3dtime.h
-	cs3d/engine/cs3dtime.cpp
 )
 
 target_link_libraries(CS3D
@@ -153,6 +169,9 @@ target_link_libraries(CS3D
 
 add_executable(CS3D_Editor
 	cs3d/editor/cs3deditor.cpp
+	cs3d/editor/editorrenderer.cpp
+	cs3d/editor/editorrenderer.h
+	cs3d/editor/crossplatformtools.h
 )
 
 target_link_libraries(CS3D_Editor
@@ -161,8 +180,7 @@ target_link_libraries(CS3D_Editor
 	fltk_forms
 	fltk_gl
 	fltk_images
-	fltk_jpeg
-	fltk_png
+	manymouse
 )
 
 add_executable(CS3D_Project
@@ -199,6 +217,10 @@ if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode" )
 elseif (${CMAKE_GENERATOR} MATCHES "Xcode" )
 
 endif (NOT ${CMAKE_GENERATOR} MATCHES "Xcode" )
+
+if (MSVC)
+	include(cmake/vsorganizing.cmake)
+endif()
 
 
 # Copy assets to the build directory

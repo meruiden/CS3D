@@ -50,6 +50,7 @@ void Renderer::createWindow()
 
 void Renderer::initGL()
 {
+	glewExperimental = true;
 	if (glewInit() != GLEW_OK)
 	{
 		fprintf(stderr, "Failed to initialize GLEW\n");
