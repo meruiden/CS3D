@@ -2,7 +2,7 @@
 
 #ifdef _WIN32
 #define PLATFORM_WINDOWS
-#elif defined(unix) || defined(__unix__) || defined(__unix) && !defined(__APPLE__)
+#elif (defined(unix) || defined(__unix__) || defined(__unix)) && !defined(__APPLE__)
 #define PLATFORM_LINUX
 #elif defined(__APPLE__)
 #define PLATFORM_APPLE
